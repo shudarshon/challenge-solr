@@ -1,4 +1,5 @@
-#hosts
-#play.retry
-#terraform
-#terraform/*
+hosts
+play.yml
+play.retry
+terraform
+terraform/*

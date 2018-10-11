@@ -1,0 +1,27 @@
+---
+# Download specific solr version
+- name: Download solr archieve
+  get_url:
+    url: "{{ solr_url }}"
+    dest: /tmp
+    mode: 0440
+  tags: [download_solr]
+
+# Extract solr installation script
+- name: Extract Solr installation script in the current directory
+  shell: "tar xzf /tmp/{{ solr_package }} {{ solr_build_name }}/bin/install_solr_service.sh --strip-components=2"
+  args:
+    chdir: /tmp
+  tags: [extract_solr_installation_script]
+
+# Install solr
+- name: Execute Solr installation script
+  shell: "/tmp/install_solr_service.sh /tmp/{{ solr_package }} -n" # -n for not starting the solr service immediately
+  tags: [install_solr]
+
+# Run solr in cloud mode
+- name: SolrCloud | Execute SolrCloud installation script
+  shell: '{{ solr_source_dir }}/bin/solr start -c -m 512m -z 172.31.32.240:2181,172.31.32.53:2181,172.31.47.64:2181 -a "-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=1044"'
+  become: yes
+  become_user: "{{ solr_user }}"
+  tags: [run_solr_cloud]

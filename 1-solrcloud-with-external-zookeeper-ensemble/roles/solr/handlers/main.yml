@@ -1,0 +1,9 @@
+---
+- name: Reload Systemd
+  command: systemctl daemon-reload
+
+- name: Enable solr
+  service: name=solr enabled=yes state=started
+
+- name: Restart solr
+  service: name=solr state=restarted

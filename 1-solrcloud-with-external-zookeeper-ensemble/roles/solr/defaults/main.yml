@@ -1,0 +1,19 @@
+---
+# solr Version Download
+
+solr_version: "7.5.0"
+solr_build_name: "solr-{{ solr_version }}"
+solr_package: "{{ solr_build_name }}.tgz"
+solr_url: "http://www-us.apache.org/dist/lucene/solr/{{ solr_version }}/{{ solr_package }}"
+
+# solr user and group
+
+solr_user: solr
+solr_group: solr
+
+# solr configuration
+
+solr_home_dir: "/var/{{ solr_user }}"
+solr_data_dir: "{{ solr_user }}/data"
+solr_source_dir: "/opt/solr"
+solr_port: 8983
